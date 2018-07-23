@@ -13,7 +13,7 @@
 	<script src="/xterm.js/addons/fit/fit.js" ></script>
 	<script src="/xterm.js/addons/fullscreen/fullscreen.js" ></script>
 	<script>
-		console.log('000000',document.body.clientWidth,document.body.clientHeight)
+		console.log('000000',document.body.clientWidth,document.body.clientHeight,document.body.clientLeft,document.body.clientTop)
 	var term;
 	var websocket = new WebSocket("ws://" + window.location.hostname + ":" + window.location.port + "/term");
 	websocket.binaryType = "arraybuffer";
@@ -22,18 +22,19 @@
 		return String.fromCharCode.apply(null, new Uint8Array(buf));
 	}
 	Terminal.applyAddon(fit);
-	Terminal.applyAddon(fullscreen);
+	// Terminal.applyAddon(fullscreen);
 
 	websocket.onopen = function(evt) {
 		term = new Terminal({
 			screenKeys: true,
 			useStyle: true,
 			cursorBlink: true,
+			letterSpacing: 0.5,
 			// cols: 50,
-			// rows: 100,
+			rows: 50,
 			// cursorBlink: 5,
-			// scrollback: 30,
-			// tabStopWidth: 4
+			scrollback: 100,
+			tabStopWidth: 4,
 		});
 
 		term.on('data', function(data) {
@@ -51,7 +52,7 @@
 
 		term.open(document.getElementById('xterm'));
 	    term.fit();
-		term.toggleFullScreen(true);  // Now the terminal should be back to normal
+		// term.toggleFullScreen(true);  // Now the terminal should be back to normal
 		// term.toggleFullScreen(false);  // Now the terminal should be back to normal
 		websocket.onmessage = function(evt) {
 		if (evt.data instanceof ArrayBuffer) {
