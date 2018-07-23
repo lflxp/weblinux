@@ -6,7 +6,7 @@ body {
 
 #terminal-container {
     width: 960px;
-    height: 600px;
+    height: 100%;
     margin: 0 auto;
     padding: 2px;
 }
@@ -21,9 +21,8 @@ body {
     background-color: #fafafa;
 }
 
-/*
-.xterm-rows div {
-    height: 16px;
-}
 
-*/
+/* .xterm-rows div {
+    height: 16px;
+} */
+
